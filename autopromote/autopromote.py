@@ -162,7 +162,8 @@ def get_force_install_time(plist):
 
     patch_day = CONFIG.get("patch_tuesday")
     if isinstance(patch_day, int) and patch_day <= 6 and patch_day >= 0:
-        r = r.shift(weekday=patch_day)
+        if get_channel_multiplier(plist) >= 1.0:
+            r = r.shift(weekday=patch_day)
 
     return r.datetime
 
